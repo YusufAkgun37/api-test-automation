@@ -21,15 +21,13 @@ public class RestResource {
         return given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get(path)
-                .then()
-                .extract()
-                .response();
+                .get(path);
     }
 
-    public static Response put(String path, Object payload) {
+    public static Response put(String path, String token, Object payload) {
         return given()
                 .contentType(ContentType.JSON)
+                .cookie("token", token) // Auth token as cookie
                 .body(payload)
                 .when()
                 .put(path)
@@ -38,9 +36,10 @@ public class RestResource {
                 .response();
     }
 
-    public static Response delete(String path) {
+    public static Response delete(String path, String token) {
         return given()
                 .contentType(ContentType.JSON)
+                .cookie("token", token) // Auth token as cookie
                 .when()
                 .delete(path)
                 .then()

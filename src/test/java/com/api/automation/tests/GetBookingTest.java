@@ -11,6 +11,8 @@ public class GetBookingTest extends BaseTest {
     public void testGetBookingIds() {
         Response response = BookingApi.getBookings();
         
+        response.prettyPrint(); // Response'u konsola yazdır
+
         Assert.assertEquals(response.statusCode(), 200, "Status code should be 200");
         Assert.assertTrue(response.jsonPath().getList("bookingid").size() > 0, "Booking list should not be empty");
     }
