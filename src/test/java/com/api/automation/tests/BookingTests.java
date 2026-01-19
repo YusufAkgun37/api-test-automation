@@ -3,16 +3,22 @@ package com.api.automation.tests;
 import com.api.automation.api.BookingApi;
 import com.api.automation.models.Booking;
 import com.api.automation.models.BookingDates;
+import io.qameta.allure.*;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Epic("Booking API")
+@Feature("CRUD Operations")
 public class BookingTests extends BaseTest {
 
     private int bookingId;
     private Booking bookingPayload;
 
     @Test(priority = 1)
+    @Story("Create Booking")
+    @Description("Verify that a new booking can be created successfully")
+    @Severity(SeverityLevel.CRITICAL)
     public void createBookingTest() {
         // Create Booking Payload using Builder pattern
         BookingDates dates = BookingDates.builder()
@@ -42,6 +48,9 @@ public class BookingTests extends BaseTest {
     }
 
     @Test(priority = 2, dependsOnMethods = "createBookingTest")
+    @Story("Get Booking")
+    @Description("Verify that a booking can be retrieved by ID")
+    @Severity(SeverityLevel.NORMAL)
     public void getBookingTest() {
         Response response = BookingApi.getBooking(bookingId);
         response.prettyPrint();
@@ -56,6 +65,9 @@ public class BookingTests extends BaseTest {
     }
 
     @Test(priority = 3, dependsOnMethods = "createBookingTest")
+    @Story("Update Booking")
+    @Description("Verify that a booking can be updated with new details")
+    @Severity(SeverityLevel.CRITICAL)
     public void updateBookingTest() {
         // Update payload
         bookingPayload.setFirstname("Yusuf Updated");
@@ -73,6 +85,9 @@ public class BookingTests extends BaseTest {
     }
 
     @Test(priority = 4, dependsOnMethods = "createBookingTest")
+    @Story("Delete Booking")
+    @Description("Verify that a booking can be deleted")
+    @Severity(SeverityLevel.CRITICAL)
     public void deleteBookingTest() {
         String token = com.api.automation.api.AuthApi.getToken();
         Response response = BookingApi.deleteBooking(bookingId, token);
