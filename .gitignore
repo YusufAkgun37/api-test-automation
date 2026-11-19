@@ -35,3 +35,7 @@ buildNumber.properties
 # OS
 .DS_Store
 Thumbs.db
+
+allure-results/
+allure-report/
+target/
